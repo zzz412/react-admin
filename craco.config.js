@@ -22,6 +22,7 @@ module.exports = function () {
 			configure(webpackConfig) {
 				// 配置扩展扩展名
 				webpackConfig.resolve.extensions = [...webpackConfig.resolve.extensions, ...['.scss', '.css']]
+				return webpackConfig
 			}
 		}
 	}
