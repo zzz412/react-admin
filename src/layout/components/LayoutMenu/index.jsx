@@ -26,7 +26,6 @@ const LayoutMenu = memo(() => {
 
 	// 设置当前展开的 subMenu
 	const onOpenChange = openKeys => {
-		console.log(openKeys)
 		if (openKeys.length === 0 || openKeys.length === 1) return setOpenKeys(openKeys)
 		const lastOpenKey = openKeys[openKeys.length - 1]
 		if (lastOpenKey.includes(openKeys[0])) return setOpenKeys(openKeys)

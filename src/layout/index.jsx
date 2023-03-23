@@ -5,13 +5,16 @@ import LayoutMenu from './components/LayoutMenu'
 import LayoutHeader from './components/LayoutHeader'
 import { Outlet } from 'react-router-dom'
 import LayoutFooter from './components/LayoutFooter'
+import { shallowEqual, useSelector } from 'react-redux'
 
 const LayoutIndex = memo(() => {
 	const { Sider, Content } = Layout
+	const { isCollapse } = useSelector(({ menu }) => ({ isCollapse: menu.isCollapse }), shallowEqual)
+
 	return (
 		<LayoutWrapper className='container'>
 			<Layout hasSider>
-				<Sider trigger={null} collapsed={false} width={220} theme='dark'>
+				<Sider trigger={null} collapsed={isCollapse} width={220} theme='dark'>
 					<LayoutMenu></LayoutMenu>
 				</Sider>
 				<Layout>
