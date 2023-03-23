@@ -1,15 +1,18 @@
 import React, { memo } from 'react'
 import { RouterProvider } from 'react-router-dom'
-import router from '@/router'
 import { ConfigProvider } from 'antd'
-import zhCN from 'antd/lib/locale/zh_CN'
 import { shallowEqual, useSelector } from 'react-redux'
+import router from '@/router'
+import zhCN from 'antd/lib/locale/zh_CN'
+import useTheme from './hooks/useTheme'
 
 const App = memo(() => {
-	const { assemblySize } = useSelector(({ global }) => global, shallowEqual)
+	const { assemblySize, themeConfig } = useSelector(({ global }) => global, shallowEqual)
+
+	const themes = useTheme(themeConfig)
 
 	return (
-		<ConfigProvider locale={zhCN} componentSize={assemblySize}>
+		<ConfigProvider theme={themes} locale={zhCN} componentSize={assemblySize}>
 			<RouterProvider router={router} />
 		</ConfigProvider>
 	)

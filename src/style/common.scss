@@ -1,17 +1,17 @@
 @import url('./var.scss');
 
 /* 常用 flex */
-.flx-center {
+.flx-c {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
-.flx-justify-between {
+.flx-j {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
-.flx-align-center {
+.flx-a {
 	display: flex;
 	align-items: center;
 }
@@ -97,5 +97,32 @@
 		a {
 			text-decoration: underline !important;
 		}
+	}
+}
+
+// 抽屉主题设置
+.ant-drawer {
+	.theme-item {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin: 25px 0;
+		span {
+			font-size: 14px;
+		}
+		.ant-switch {
+			width: 46px;
+		}
+	}
+	.divider {
+		margin: 0 0 22px;
+		font-size: 15px;
+		.anticon {
+			margin-right: 10px;
+		}
+	}
+	.ant-divider-with-text::before,
+	.ant-divider-with-text::after {
+		border-top: 1px solid #dcdfe6;
 	}
 }

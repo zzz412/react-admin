@@ -1,24 +1,58 @@
 import { Menu } from 'antd'
 import React, { memo, useState } from 'react'
 import Logo from './components/Logo'
-import { TrophyOutlined } from '@ant-design/icons'
+import { HomeOutlined, MenuOutlined, ProfileOutlined, UnorderedListOutlined, UserOutlined } from '@ant-design/icons'
 import { MenuWrapper } from './style'
+import { useNavigate } from 'react-router-dom'
 
-const menu = new Array(20).fill('测试').map((item, index) => {
-	return {
-		icon: <TrophyOutlined />,
-		key: item + index,
-		label: item + index,
+const menu = [
+	{
+		key: '/home',
+		label: '首页',
+		icon: <HomeOutlined />
+	},
+	{
+		key: '/user-manage',
+		label: '用户管理',
+		icon: <UserOutlined />,
 		children: [
 			{
-				icon: <TrophyOutlined />,
-				key: item + index + '/',
-				label: item + index,
-				children: [{ icon: <TrophyOutlined />, key: item + index + '//', label: item + index }]
+				key: '/user-manage/user-list',
+				label: '用户列表',
+				icon: <UnorderedListOutlined />
+			}
+		]
+	},
+	{
+		key: '/role-manage',
+		label: '权限管理',
+		icon: <MenuOutlined />,
+		children: [
+			{
+				key: '/role-manage/role-list',
+				label: '角色列表',
+				icon: <UnorderedListOutlined />
+			},
+			{
+				key: '/role-manage/rights-list',
+				label: '权限列表',
+				icon: <UnorderedListOutlined />
+			}
+		]
+	},
+	{
+		key: '/news-manage',
+		label: '新闻管理',
+		icon: <ProfileOutlined />,
+		children: [
+			{
+				key: '/news-manage/news-list',
+				label: '新闻列表',
+				icon: <UnorderedListOutlined />
 			}
 		]
 	}
-})
+]
 
 const LayoutMenu = memo(() => {
 	const [menuList, setMenuList] = useState(menu)
@@ -33,8 +67,9 @@ const LayoutMenu = memo(() => {
 	}
 
 	// 点击菜单跳转页面
+	const navigate = useNavigate()
 	const clickMenu = ({ key }) => {
-		console.log(key)
+		navigate(key)
 	}
 
 	return (

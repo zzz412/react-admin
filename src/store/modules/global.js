@@ -6,7 +6,13 @@ const GLobalSlice = createSlice({
 		token: '',
 		userInfo: '',
 		language: 'zh',
-		assemblySize: 'middle'
+		assemblySize: 'middle',
+		themeConfig: {
+			// 默认主题颜色
+			primary: '#1890ff',
+			// 深色模式
+			isDark: false
+		}
 	},
 	reducers: {
 		setAssemblySize(state, { payload }) {
@@ -14,10 +20,13 @@ const GLobalSlice = createSlice({
 		},
 		setLanguage(state, { payload }) {
 			state.language = payload
+		},
+		setThemeConfig(state, { payload }) {
+			state.themeConfig = payload
 		}
 	}
 })
 
-export const { setAssemblySize, setLanguage } = GLobalSlice.actions
+export const { setAssemblySize, setLanguage, setThemeConfig } = GLobalSlice.actions
 
 export default GLobalSlice.reducer
