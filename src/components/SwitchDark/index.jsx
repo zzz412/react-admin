@@ -8,7 +8,7 @@ const SwitchDark = memo(() => {
 
 	const dispatch = useDispatch()
 	const onChange = checked => {
-		dispatch(setThemeConfig({ ...themeConfig, isDark: checked }))
+		dispatch(setThemeConfig({ isDark: checked }))
 	}
 
 	return <Switch className='dark' checked={themeConfig.isDark} checkedChildren='🌞' unCheckedChildren='🌜' onChange={onChange} />

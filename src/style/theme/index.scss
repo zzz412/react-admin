@@ -15,9 +15,7 @@ body {
 		--shadow-color: 5px 5px 15px rgba(255, 255, 255, 0.2);
 		--scrollbar-bg-color: #686868;
 	}
-
-	background-color: var(--main-bg-color);
-	#driver-highlighted-element-stage {
-		background-color: #fff;
-	}
 }
+
+@import url('./theme.dark.scss');
+@import url('./theme.default.scss');

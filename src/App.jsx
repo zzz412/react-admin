@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import { RouterProvider } from 'react-router-dom'
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, App as AppProvider } from 'antd'
 import { shallowEqual, useSelector } from 'react-redux'
 import router from '@/router'
 import zhCN from 'antd/lib/locale/zh_CN'
@@ -13,7 +13,9 @@ const App = memo(() => {
 
 	return (
 		<ConfigProvider theme={themes} locale={zhCN} componentSize={assemblySize}>
-			<RouterProvider router={router} />
+			<AppProvider>
+				<RouterProvider router={router} />
+			</AppProvider>
 		</ConfigProvider>
 	)
 })

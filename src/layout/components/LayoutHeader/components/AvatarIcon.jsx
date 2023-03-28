@@ -1,6 +1,10 @@
-import { Avatar, Dropdown } from 'antd'
+import { App, Avatar, Dropdown } from 'antd'
 import React, { memo } from 'react'
 import avatar from '@/assets/images/avatar.png'
+import { useNavigate } from 'react-router-dom'
+import { ExclamationCircleOutlined } from '@ant-design/icons'
+import { setToken } from '@/store/modules/global'
+import { useDispatch } from 'react-redux'
 
 const AvatarIcon = memo(() => {
 	const items = [
@@ -25,8 +29,38 @@ const AvatarIcon = memo(() => {
 		}
 	]
 
+	// 退出登录
+	const { modal, message } = App.useApp()
+	const dispatch = useDispatch()
+	const logout = () => {
+		modal.confirm({
+			title: '温馨提示 🧡',
+			icon: <ExclamationCircleOutlined />,
+			content: '是否确认退出登录？',
+			okText: '确认',
+			cancelText: '取消',
+			onOk: () => {
+				dispatch(setToken(''))
+				message.success('退出登录成功！')
+				navigate('/login')
+			}
+		})
+	}
+
+	const navigate = useNavigate()
 	const onClick = ({ key }) => {
-		console.log(key)
+		switch (key) {
+			case '1':
+				return navigate('/')
+			case '2':
+				return
+			case '3':
+				return
+			case '4':
+				return logout()
+			default:
+				return
+		}
 	}
 
 	return (

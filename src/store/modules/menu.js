@@ -10,12 +10,12 @@ const MenuSlice = createSlice({
 		changeCollapse(state, { payload }) {
 			state.isCollapse = payload
 		},
-		setMenuList(state, { payload }) {
+		setMenuListAction(state, { payload }) {
 			state.menuList = payload
 		}
 	}
 })
 
-export const { changeCollapse, setMenuList } = MenuSlice.actions
+export const { changeCollapse, setMenuListAction } = MenuSlice.actions
 
 export default MenuSlice.reducer

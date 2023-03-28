@@ -1,5 +1,4 @@
-import '@/style/theme/theme.default.scss'
-import '@/style/theme/theme.dark.scss'
+import '@/style/theme/index.scss'
 
 import { theme } from 'antd'
 const useTheme = themeConfig => {

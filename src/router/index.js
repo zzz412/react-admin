@@ -31,9 +31,9 @@ const routes = [
 		element: <Layout />,
 		meta: { title: '权限管理' },
 		children: [
-			{ path: '/role-manage', element: <Navigate to='/role-manage/role-list' /> },
-			{ path: '/role-manage/role-list', element: <RoleList />, meta: { title: '角色列表' } },
-			{ path: '/role-manage/rights-list', element: <RightsList />, meta: { title: '权限列表' } }
+			{ path: '/right-manage', element: <Navigate to='/right-manage/role-list' /> },
+			{ path: '/right-manage/role-list', element: <RoleList />, meta: { title: '角色列表' } },
+			{ path: '/right-manage/rights-list', element: <RightsList />, meta: { title: '权限列表' } }
 		]
 	},
 	// 新闻管理 ->  新闻列表
@@ -49,6 +49,6 @@ const routes = [
 	{ path: '*', element: <Navigate to='/404' /> }
 ]
 
-const router = createBrowserRouter(routes)
+const router = createBrowserRouter(routes, { basename: process.env.PUBLIC_URL })
 
 export default router

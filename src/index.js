@@ -5,13 +5,16 @@ import '@/assets/fonts/font.scss'
 import '@/style/common.scss'
 
 import { Provider } from 'react-redux'
-import store from './store'
+import { PersistGate } from 'redux-persist/integration/react'
+import store, { persistor } from './store'
 import App from './App'
 
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 
 root.render(
 	<Provider store={store}>
-		<App />
+		<PersistGate persistor={persistor}>
+			<App />
+		</PersistGate>
 	</Provider>
 )

@@ -1,10 +1,14 @@
 import SwitchDark from '@/components/SwitchDark'
+import { setThemeConfig } from '@/store/modules/global'
 import { FireOutlined, SettingOutlined } from '@ant-design/icons'
 import { Divider, Drawer, Switch } from 'antd'
 import React, { memo, useState } from 'react'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
 const Theme = memo(() => {
 	const [open, setOpen] = useState(false)
+	const { breadcrumb, footer } = useSelector(({ global }) => global.themeConfig, shallowEqual)
+	const dispatch = useDispatch()
 
 	const onClose = () => {
 		setOpen(false)
@@ -27,12 +31,8 @@ const Theme = memo(() => {
 					界面设置
 				</Divider>
 				<div className='theme-item'>
-					<span>折叠菜单</span>
-					<Switch />
-				</div>
-				<div className='theme-item'>
 					<span>面包屑导航</span>
-					<Switch />
+					<Switch checked={breadcrumb} onChange={checked => dispatch(setThemeConfig({ breadcrumb: checked }))} />
 				</div>
 				<div className='theme-item'>
 					<span>标签栏</span>
@@ -40,7 +40,7 @@ const Theme = memo(() => {
 				</div>
 				<div className='theme-item'>
 					<span>页脚</span>
-					<Switch />
+					<Switch checked={footer} onChange={checked => dispatch(setThemeConfig({ footer: checked }))} />
 				</div>
 			</Drawer>
 		</>

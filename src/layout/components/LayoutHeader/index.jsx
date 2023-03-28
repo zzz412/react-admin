@@ -1,5 +1,6 @@
 import { Layout } from 'antd'
 import React, { memo } from 'react'
+import { useSelector } from 'react-redux'
 import AssemblySize from './components/AssemblySize'
 import AvatarIcon from './components/AvatarIcon'
 import BreadcrumbNav from './components/BreadcrumbNav'
@@ -10,6 +11,7 @@ import Theme from './components/Theme'
 import { HeaderWrapper } from './style'
 
 const LayoutHeader = memo(() => {
+	const { username } = useSelector(({ global }) => global.userinfo)
 	const { Header } = Layout
 	return (
 		<HeaderWrapper>
@@ -23,7 +25,7 @@ const LayoutHeader = memo(() => {
 					<Language />
 					<Theme />
 					<Fullscreen />
-					<span className='username'>Hooks</span>
+					<span className='username'>{username}</span>
 					<AvatarIcon />
 				</div>
 			</Header>
