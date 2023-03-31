@@ -52,4 +52,23 @@ export const MenuWrapper = styled.div`
 			background-color: #41444b;
 		}
 	}
+
+	/* 去除菜单 Loading 遮罩层 */
+	.ant-spin-nested-loading,
+	.ant-spin-container {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		.ant-spin {
+			max-height: 100% !important;
+		}
+		.ant-spin-container::after {
+			background: transparent !important;
+		}
+		.ant-spin-blur {
+			overflow: auto !important;
+			clear: none !important;
+			opacity: 1 !important;
+		}
+	}
 `

@@ -6,6 +6,8 @@ import LayoutHeader from './components/LayoutHeader'
 import { Outlet } from 'react-router-dom'
 import LayoutFooter from './components/LayoutFooter'
 import { shallowEqual, useSelector } from 'react-redux'
+import { Suspense } from 'react'
+import Loading from '@/components/Loading'
 
 const LayoutIndex = memo(() => {
 	const { Sider, Content } = Layout
@@ -20,7 +22,9 @@ const LayoutIndex = memo(() => {
 				<Layout>
 					<LayoutHeader></LayoutHeader>
 					<Content>
-						<Outlet></Outlet>
+						<Suspense fallback={<Loading />}>
+							<Outlet></Outlet>
+						</Suspense>
 					</Content>
 					<LayoutFooter></LayoutFooter>
 				</Layout>

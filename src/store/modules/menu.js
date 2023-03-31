@@ -4,7 +4,8 @@ const MenuSlice = createSlice({
 	name: 'menu',
 	initialState: {
 		isCollapse: false,
-		menuList: []
+		menuList: [],
+		breadcrumbList: []
 	},
 	reducers: {
 		changeCollapse(state, { payload }) {
@@ -12,10 +13,13 @@ const MenuSlice = createSlice({
 		},
 		setMenuListAction(state, { payload }) {
 			state.menuList = payload
+		},
+		setBreadcrumbList(state, { payload }) {
+			state.breadcrumbList = payload
 		}
 	}
 })
 
-export const { changeCollapse, setMenuListAction } = MenuSlice.actions
+export const { changeCollapse, setMenuListAction, setBreadcrumbList } = MenuSlice.actions
 
 export default MenuSlice.reducer

@@ -1,23 +1,20 @@
-import { Menu } from 'antd'
+import { Menu, Spin } from 'antd'
 import React, { memo, useEffect, useState } from 'react'
 import Logo from './components/Logo'
 import { MenuWrapper } from './style'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { menuListApi } from '@/api/modules/user'
 import * as Icons from '@ant-design/icons'
-import { filterMenuList, getOpenKeys, handleRouter } from '@/utils/utils'
+import { filterMenuList, findAllBreadcrumb, getOpenKeys, searchRoute } from '@/utils/utils'
 import { useDispatch, useSelector } from 'react-redux'
-import { setMenuListAction } from '@/store/modules/menu'
-import { setAuthRouter } from '@/store/modules/auth'
+import { setBreadcrumbList, setMenuListAction } from '@/store/modules/menu'
 
 const LayoutMenu = memo(() => {
 	const { pathname } = useLocation()
-	const [menuList, setMenuList] = useState([])
-	const [openKeys, setOpenKeys] = useState([])
 	const [selectedKeys, setSelectedKeys] = useState([pathname])
-	const { role } = useSelector(({ global }) => global.userinfo)
 	const isCollapse = useSelector(({ menu }) => menu.isCollapse)
 
+	const [openKeys, setOpenKeys] = useState([])
 	useEffect(() => {
 		setSelectedKeys([pathname])
 		!isCollapse && setOpenKeys(getOpenKeys(pathname))
@@ -34,6 +31,8 @@ const LayoutMenu = memo(() => {
 	// 点击菜单跳转页面
 	const navigate = useNavigate()
 	const clickMenu = ({ key }) => {
+		const route = searchRoute(pathname, menuList)
+		if (route.isLink) window.open(route.isLink, '_blank')
 		navigate(key)
 	}
 
@@ -55,20 +54,27 @@ const LayoutMenu = memo(() => {
 
 	// 获取菜单列表并处理成 antd menu 需要的格式
 	const dispatch = useDispatch()
+	const [menuList, setMenuList] = useState([])
+	const [loading, setLoading] = useState(false)
+	const { role } = useSelector(({ global }) => global.userinfo)
 	const getMenuData = async () => {
-		const { data } = await menuListApi()
-		if (!data) return
-		// 1. 根据用户权限筛选列表
-		const filterData = filterMenuList(data, role.rights)
-		// 2. 处理筛选后的列表 -> 路由权限判断
-		const dynamicRouter = handleRouter(filterData)
-		// 3. 映射 -> menu菜单格式
-		const menuData = deepLoopFloat(filterData)
-		// 4. 设置到菜单上
-		setMenuList(menuData)
-		// 4. 设置到redux中
-		dispatch(setAuthRouter(dynamicRouter))
-		dispatch(setMenuListAction(filterData))
+		setLoading(true)
+		try {
+			const { data } = await menuListApi()
+			if (!data) return
+			// 1. 根据用户权限筛选列表
+			const filterData = filterMenuList(data, role.rights)
+			// 3. 映射 -> menu菜单格式
+			const menuData = deepLoopFloat(filterData)
+			// 4. 设置到菜单上
+			setMenuList(menuData)
+			// 5. 设置到面包屑中
+			dispatch(setBreadcrumbList(findAllBreadcrumb(menuData)))
+			// 5. 设置到redux中
+			dispatch(setMenuListAction(filterData))
+		} finally {
+			setLoading(false)
+		}
 	}
 
 	useEffect(() => {
@@ -77,17 +83,19 @@ const LayoutMenu = memo(() => {
 
 	return (
 		<MenuWrapper>
-			<Logo />
-			<Menu
-				theme='dark'
-				mode='inline'
-				triggerSubMenuAction='click'
-				items={menuList}
-				openKeys={openKeys}
-				selectedKeys={selectedKeys}
-				onClick={clickMenu}
-				onOpenChange={onOpenChange}
-			></Menu>
+			<Spin spinning={loading} tip='loading...'>
+				<Logo />
+				<Menu
+					theme='dark'
+					mode='inline'
+					triggerSubMenuAction='click'
+					items={menuList}
+					openKeys={openKeys}
+					selectedKeys={selectedKeys}
+					onClick={clickMenu}
+					onOpenChange={onOpenChange}
+				></Menu>
+			</Spin>
 		</MenuWrapper>
 	)
 })

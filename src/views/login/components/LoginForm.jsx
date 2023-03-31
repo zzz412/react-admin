@@ -1,4 +1,5 @@
 import { loginApi } from '@/api/modules/user'
+import { setAuthRouter } from '@/store/modules/auth'
 import { setToken, setUserinfo } from '@/store/modules/global'
 import { CloseCircleOutlined, LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Button, Form, Input, App } from 'antd'
@@ -9,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 const LoginForm = memo(() => {
 	const [form] = Form.useForm()
 	const [loading, setLoading] = useState(false)
+	const initialValues = { username: 'admin', password: '123456' }
 	const { message } = App.useApp()
 
 	const navigate = useNavigate()
@@ -19,10 +21,13 @@ const LoginForm = memo(() => {
 			setLoading(true)
 			const { data } = await loginApi(loginForm)
 			if (!data.length) return message.error('用户名与密码不匹配')
-			dispatch(setToken(JSON.stringify(data[0])))
-			dispatch(setUserinfo(data[0]))
+
+			const user = data[0]
+			dispatch(setToken(JSON.stringify(user)))
+			dispatch(setUserinfo(user))
+			dispatch(setAuthRouter(user.role.rights))
 			message.success('登录成功！')
-			navigate('/')
+			navigate('/home')
 		} finally {
 			setLoading(false)
 		}
@@ -38,7 +43,7 @@ const LoginForm = memo(() => {
 			form={form}
 			name='basic'
 			labelCol={{ span: 5 }}
-			initialValues={{ remember: true }}
+			initialValues={initialValues}
 			size='large'
 			autoComplete='off'
 			onFinish={onFinish}

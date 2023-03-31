@@ -3,8 +3,9 @@ import React, { memo } from 'react'
 import avatar from '@/assets/images/avatar.png'
 import { useNavigate } from 'react-router-dom'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { setToken } from '@/store/modules/global'
+import { setToken, setUserinfo } from '@/store/modules/global'
 import { useDispatch } from 'react-redux'
+import { setAuthRouter } from '@/store/modules/auth'
 
 const AvatarIcon = memo(() => {
 	const items = [
@@ -41,6 +42,8 @@ const AvatarIcon = memo(() => {
 			cancelText: '取消',
 			onOk: () => {
 				dispatch(setToken(''))
+				dispatch(setUserinfo(''))
+				dispatch(setAuthRouter([]))
 				message.success('退出登录成功！')
 				navigate('/login')
 			}

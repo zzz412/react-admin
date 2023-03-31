@@ -12,9 +12,9 @@ const NotFound = memo(() => {
 	return (
 		<NotFoundWrapper>
 			<Result
-				status={404}
-				title='404'
-				subTitle='很抱歉，您访问的页面不存在。'
+				status={403}
+				title='403'
+				subTitle='很抱歉，您无权访问此页面。'
 				extra={
 					<Button type='primary' onClick={goHome}>
 						返回主页
