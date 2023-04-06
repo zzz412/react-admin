@@ -37,6 +37,6 @@ const GLobalSlice = createSlice({
 	}
 })
 
-export const { setToken, setUserinfo, setAssemblySize, setLanguage, setThemeConfig, test } = GLobalSlice.actions
+export const { setToken, setUserinfo, setAssemblySize, setLanguage, setThemeConfig } = GLobalSlice.actions
 
 export default GLobalSlice.reducer

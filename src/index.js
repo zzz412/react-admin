@@ -3,6 +3,7 @@ import '@/style/reset.scss'
 import '@/assets/iconfont/iconfont.scss'
 import '@/assets/fonts/font.scss'
 import '@/style/common.scss'
+import '@/language'
 
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'

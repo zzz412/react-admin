@@ -6,8 +6,10 @@ import { Button, Form, Input, App } from 'antd'
 import React, { memo, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const LoginForm = memo(() => {
+	const { t } = useTranslation()
 	const [form] = Form.useForm()
 	const [loading, setLoading] = useState(false)
 	const initialValues = { username: 'admin', password: '123456' }
@@ -57,10 +59,10 @@ const LoginForm = memo(() => {
 			</Form.Item>
 			<Form.Item className='login-btn'>
 				<Button icon={<CloseCircleOutlined />} onClick={() => form.resetFields()}>
-					重置
+					{t('login.reset')}
 				</Button>
 				<Button type='primary' htmlType='submit' loading={loading} icon={<UserOutlined />}>
-					登录
+					{t('login.confirm')}
 				</Button>
 			</Form.Item>
 		</Form>
