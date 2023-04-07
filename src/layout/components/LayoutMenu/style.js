@@ -11,10 +11,13 @@ export const MenuWrapper = styled.div`
 		justify-content: center;
 		height: 55px;
 		border-bottom: 1px solid #010b14;
+		cursor: pointer;
 
 		.logo-img {
 			width: 30px;
 			margin: 0;
+			border-radius: 4px;
+			overflow: hidden;
 		}
 
 		.logo-text {
